@@ -1,0 +1,55 @@
+[alias]
+lol = log --graph --decorate --pretty=oneline --abbrev-commit
+lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+undopush = ! . ~/.profile && git push --force-with-lease origin HEAD^:"$(git_current_branch)"
+wdiff = diff -w --word-diff=color
+whatadded = log --diff-filter=A
+
+[branch]
+autosetuprebase = always
+
+[color]
+branch = auto
+diff = auto
+interactive = auto
+status = auto
+ui = true
+pager = true
+
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+meta = yellow
+frag = magenta
+old = red
+new = green
+
+[color "status"]
+added = yellow
+changed = green
+untracked = cyan
+
+[core]
+excludesfile = ~/.gitignore_global
+
+[init]
+defaultBranch = main
+
+[push]
+default = simple
+followTags = true
+
+[rerere]
+enabled = 1
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+[include]
+path = ~/.gitconfig_local

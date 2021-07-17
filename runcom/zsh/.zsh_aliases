@@ -1,0 +1,70 @@
+#!/usr/bin/env zsh
+# echo "$(basename $0)"
+
+# Shortcuts
+alias rr='rm -rf'
+
+# Directory listing
+alias ls='ls -hv --color=auto --group-directories-first'
+alias ld="ls -ld */"
+alias lld="ld .*/"
+
+# Django
+alias djrun='python manage.py runserver'
+alias djsu='python manage.py createsuperuser'
+alias djmm='python manage.py makemigrations'
+alias djmig='python manage.py migrate'
+alias djtest='python manage.py test'
+alias djsh='python manage.py shell'
+alias djshp='python manage.py shell_plus'
+
+# File handling
+alias rm='rm -I'
+
+# Git
+alias gcd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git checkout'
+alias gsc='GIT_COMMITTER_DATE="$(git show --format=%aD | head -1)"'
+alias guc='unset GIT_COMMITTER_DATE'
+alias gmd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git merge'
+alias gmm='git merge $(git_main_branch)'
+alias grbd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git rebase'
+alias gwt='git worktree'
+alias gwta='git worktree add'
+alias gwtl='git worktree list'
+alias gwtlo='git worktree lock'
+alias gwtmv='git worktree move'
+alias gwtpr='git worktree prune'
+alias gwtrm='git worktree remove'
+alias gwtulo='git worktree unlock'
+
+# Recursive EOL replacement
+alias dos2unixn='find . -type f -print0 | xargs -0 dos2unix'
+alias unix2dosn='find . -type f -print0 | xargs -0 unix2dos'
+
+# Python venv
+alias vx='deactivate'
+function va {
+  [[ -n "$*" ]] && lastEnv="${*: -1:1}" || lastEnv=".venv"
+
+  if [[ ! -d "$lastEnv" && ! -L "$lastEnv" ]]; then
+    # python -m venv --system-site-packages --upgrade-deps "${@:-${lastEnv}}"
+    python -m venv --upgrade-deps "${@:-${lastEnv}}"
+    touch .env requirements.txt
+    source "$lastEnv"/bin/activate
+    pip install --upgrade python-dotenv wheel
+  else
+    source "$lastEnv"/bin/activate
+  fi
+}
+
+# List declared aliases, functions, paths
+alias aliases="alias | sed 's/=.*//'"
+alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
+alias paths='echo -e ${PATH//:/\\n}'
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Other
+alias now='date +"%T"'
+alias week='date +%V'
