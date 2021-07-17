@@ -7,7 +7,7 @@ alias rr='rm -rf'
 # Directory listing
 alias ls='ls -hv --color=auto --group-directories-first'
 alias ld="ls -ld */"
-alias lld="ld .*/"
+alias lad="ld .*/"
 
 # Django
 alias djrun='python manage.py runserver'
@@ -22,12 +22,10 @@ alias djshp='python manage.py shell_plus'
 alias rm='rm -I'
 
 # Git
-alias gcd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git checkout'
 alias gsc='GIT_COMMITTER_DATE="$(git show --format=%aD | head -1)"'
 alias guc='unset GIT_COMMITTER_DATE'
-alias gmd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git merge'
 alias gmm='git merge $(git_main_branch)'
-alias grbd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git rebase'
+alias gmd='git merge $(git_develop_branch)'
 alias gwt='git worktree'
 alias gwta='git worktree add'
 alias gwtl='git worktree list'
@@ -47,11 +45,11 @@ function va {
   [[ -n "$*" ]] && lastEnv="${*: -1:1}" || lastEnv=".venv"
 
   if [[ ! -d "$lastEnv" && ! -L "$lastEnv" ]]; then
-    # python -m venv --system-site-packages --upgrade-deps "${@:-${lastEnv}}"
-    python -m venv --upgrade-deps "${@:-${lastEnv}}"
-    touch .env requirements.txt
+    pip install --upgrade pip setuptools wheel
+    python -m venv --system-site-packages "${@:-${lastEnv}}"
+    touch requirements.txt .envrc
     source "$lastEnv"/bin/activate
-    pip install --upgrade python-dotenv wheel
+    pip install --ignore-installed pip setuptools wheel
   else
     source "$lastEnv"/bin/activate
   fi

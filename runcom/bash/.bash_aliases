@@ -16,13 +16,12 @@ alias l='ls -lF'   # size, show type, human readable
 alias la='ls -lAF' # long list, show almost all, show type, human readable
 alias lr='ls -tRF' # sorted by date, recursive, show type, human readable
 alias lt='ls -ltF' # long list, sorted by date, show type, human readable
-alias ll='ls -l'   # long list
 alias ldot='ls -ld .*'
 alias lS='ls -1FSs'
 alias lart='ls -1Fcart'
 alias lrt='ls -1Fcrt'
 alias ld="ls -ld */"
-alias lld="ld .*/"
+alias lad="ld .*/"
 
 # File handling
 alias rm='rm -I'
@@ -78,6 +77,18 @@ function git_main_branch() {
   echo master
 }
 
+function git_develop_branch() {
+  command git rev-parse --git-dir &>/dev/null || return
+  local branch
+  for branch in dev devel develop development; do
+    if command git show-ref -q --verify refs/heads/$branch; then
+      echo $branch
+      return
+    fi
+  done
+  echo develop
+}
+
 alias g='git'
 
 alias ga='git add'
@@ -91,7 +102,7 @@ alias gapt='git apply --3way'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gbd='git branch -d'
-alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*($(git_main_branch)|development|develop|devel|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbda='git branch --no-color --merged | command grep -vE "^(\+|\*|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs -n 1 git branch -d'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gbnm='git branch --no-merged'
@@ -119,7 +130,7 @@ alias gcl='git clone --recurse-submodules'
 alias gclean='git clean -id'
 alias gpristine='git reset --hard && git clean -dffx'
 alias gcm='git checkout $(git_main_branch)'
-alias gcd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git checkout'
+alias gcd='git checkout $(git_develop_branch)'
 alias gcmsg='git commit -m'
 alias gco='git checkout'
 alias gcor='git checkout --recurse-submodules'
@@ -243,7 +254,7 @@ alias gra='git remote add'
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
-alias grbd='git branch | tac | command grep -E "^(\+|\*)?\s*(development|develop|devel|dev)\s*$" | head -1 | command xargs -n 1 git rebase'
+alias grbd='git rebase $(git_develop_branch)'
 alias grbi='git rebase -i'
 alias grbm='git rebase $(git_main_branch)'
 alias grbo='git rebase --onto'
@@ -353,7 +364,7 @@ function pyclean() {
 
 # Add the user installed site-packages paths to PYTHONPATH, only if the
 #   directory exists. Also preserve the current PYTHONPATH value.
-# Feel free to autorun this when .zshrc loads.
+# Feel free to autorun this when .bashrc loads.
 function pyuserpaths() {
   local targets=("python2" "python3") # bins
 

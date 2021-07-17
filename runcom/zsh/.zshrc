@@ -20,9 +20,6 @@ if [[ -d "$HOME/.bin" ]]; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# Autorun file
-[[ -r /mnt/wsl/autorun.sh ]] && source /mnt/wsl/autorun.sh
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -126,6 +123,7 @@ plugins=(
   command-not-found
   common-aliases
   cp
+  direnv
   django
   docker
   docker-compose
@@ -143,6 +141,8 @@ plugins=(
 )
 
 source "$ZSH"/oh-my-zsh.sh
+# direnv
+# eval "$(direnv hook zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

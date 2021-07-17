@@ -40,6 +40,8 @@ function node_n {
 
   n rm "$(n --lts)"
   n latest
+
+  npm install -g editorconfig
 }
 
 function python_pyenv {
@@ -64,7 +66,6 @@ function python_pyenv {
   pyenv install -s 3.9.6
   pyenv global 3.9.6
   pip install --upgrade pip setuptools wheel
-  pip install pipupgrade pygments
 }
 
 function omz_zsh {
@@ -77,15 +78,23 @@ function omz_zsh {
   chsh -s "$(command -v zsh)"
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
 
-  pip install xxh-xxh
-  xxh +I xxh-plugin-zsh-ohmyzsh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 }
 
+function direnv {
+  if [[ -x "$(command -v apt)" ]]; then
+    sudo apt install -y direnv
+  elif [[ -x "$(command -v dnf)" ]]; then
+    sudo dnf install -y direnv
+  fi
+}
+
 function backup_gitconfig {
-  cat ~/.gitconfig >>~/.gitconfig_local
+  if ! [[ -s ~/.gitconfig_local ]]; then
+    cat ~/.gitconfig >> ~/.gitconfig_local
+  fi
 }
 
 function link_dotfiles {
@@ -103,6 +112,7 @@ while [[ $# -gt 0 ]]; do
     python_pyenv
     omz_zsh
     node_n
+    direnv
     backup_gitconfig
     link_dotfiles
     shift
@@ -113,6 +123,7 @@ while [[ $# -gt 0 ]]; do
     python_pyenv
     omz_zsh
     node_n
+    direnv
     backup_gitconfig
     link_dotfiles
     shift

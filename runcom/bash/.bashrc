@@ -121,8 +121,8 @@ if [[ -d "$HOME/.bin" ]]; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# Autorun file
-[[ -r /mnt/wsl/autorun.sh ]] && source /mnt/wsl/autorun.sh
+# direnv
+eval "$(direnv hook bash)"
 
 # Dotfiles (order matters)
 for DOTFILE in ~/.{bash_functions,bash_aliases}; do
