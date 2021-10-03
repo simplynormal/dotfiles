@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# echo "$(basename $0)"
 
 # Shortcuts
 alias rr='rm -rf'

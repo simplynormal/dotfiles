@@ -1,5 +1,4 @@
 # Interactive, non-login
-# echo "$(basename $BASH_SOURCE)"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -104,25 +103,10 @@ fi
 # GnuPG pinentry
 export GPG_TTY=$(tty)
 
-# Keychain
-# eval "$(keychain --eval --agents ssh,gpg <ssh> <gpg>)"
-
-# Pyenv
-if [[ -z "$VIRTUAL_ENV" ]]; then
-  eval "$(pyenv init -)"
-fi
-
-# N
-export N_PREFIX="$HOME/n"
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
 # set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.bin" ]]; then
   PATH="$HOME/.bin:$PATH"
 fi
-
-# direnv
-eval "$(direnv hook bash)"
 
 # Dotfiles (order matters)
 for DOTFILE in ~/.{bash_functions,bash_aliases}; do

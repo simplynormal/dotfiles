@@ -3,19 +3,13 @@
 source ../common.sh
 
 function main() {
-  sudo dnf upgrade -y
-  sudo dnf install -y \
-    make \
-    clang \
-    gcc \
-    gcc-c++ \
-    gdb \
-    gdb-gdbserver \
-    rsync \
-    zip
+  if [[ "$1" == apt ]]; then
+    basepkgs=(build-essential clang gcc g++ gdb gdbserver rsync zip)
+  elif [[ "$1" == dnf ]]; then
+    basepkgs=(make clang gcc gcc-c++ gdb gdb-gdbserver rsync zip)
+  fi
 
   # Install the Microsoft version of CMake for Visual Studio
-
   createtmp
   # shellcheck disable=SC2155
   local dist="$(uname -m)"
@@ -24,8 +18,6 @@ function main() {
     sudo bash cmake.sh --skip-license --prefix=/usr/local
   fi
   cleantmp
-
-  sudo dnf autoremove -y
 }
 
 main "$@"

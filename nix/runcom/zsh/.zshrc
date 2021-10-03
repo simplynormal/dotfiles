@@ -124,15 +124,11 @@ plugins=(
   common-aliases
   cp
   direnv
-  django
   docker
   docker-compose
   dotnet
-  encode64
-  extract
   git
   git-lfs
-  jsontools
   pyenv
   python
   vscode

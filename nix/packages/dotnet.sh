@@ -3,18 +3,14 @@
 source ../common.sh
 
 function main() {
+  if [[ "$1" == apt ]]; then
   createtmp
   wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
-
-  sudo apt update
-  sudo apt install -y \
-    apt-transport-https \
-    dotnet-sdk-5.0 \
-    nuget
   cleantmp
+  fi
 
-  sudo apt autoremove -y
+  sudo "$1" install -y dotnet-sdk-5.0 nuget
 }
 
 main "$@"
