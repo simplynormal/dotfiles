@@ -3,9 +3,6 @@
 # GnuPG pinentry
 export GPG_TTY=$(tty)
 
-# Keychain
-# eval "$(keychain --eval --agents ssh,gpg <ssh> <gpg>)"
-
 # Pyenv
 if [[ -z "$VIRTUAL_ENV" ]]; then
   eval "$(pyenv init -)"

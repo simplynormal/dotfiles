@@ -11,15 +11,15 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 function update_upgrade {
   if [[ "$1" == dnf ]]; then
-      sudo dnf upgrade -y
+    sudo dnf upgrade -y
   elif [[ "$1" == apt ]]; then
-      sudo apt update
-      sudo apt full-upgrade -y
+    sudo apt update
+    sudo apt full-upgrade -y
   fi
 }
 
 function base_packages {
-  basepkgs=(curl direnv dos2unix git git-lfs htop keychain less make man-db most
+  basepkgs=(curl direnv dos2unix git git-lfs htop less make man-db most
     nano openssl pinentry-tty rsync tree)
 
   sudo "$1" install -y "${basepkgs[@]}"
@@ -29,12 +29,14 @@ function base_packages {
 
 function backup_gitconfig {
   if ! [[ -s ~/.gitconfig_local ]]; then
-    cat ~/.gitconfig >>~/.gitconfig_local
+    cat ~/.gitconfig >> ~/.gitconfig_local
   fi
 }
 
 function link_dotfiles {
   for DOTFILE in "$BASEDIR"/{git,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  ln -sfv "$BASEDIR"/ssh/config/ ~/.ssh/config
+
   # for DOTFILE in "$BASEDIR"/runcom/bash/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in "$BASEDIR"/runcom/zsh/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   ln -sfvd "$BASEDIR"/system/.bin/ ~
