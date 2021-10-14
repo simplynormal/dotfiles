@@ -34,12 +34,12 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  for DOTFILE in "$BASEDIR"/{git,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  ln -sfv "$BASEDIR"/ssh/config/ ~/.ssh/config
-
+  ln -sfvd "$BASEDIR"/system/.bin/ ~
   # for DOTFILE in "$BASEDIR"/runcom/bash/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in "$BASEDIR"/runcom/zsh/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  ln -sfvd "$BASEDIR"/system/.bin/ ~
+  for DOTFILE in "$BASEDIR"/system/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  for DOTFILE in $(cd ${BASEDIR}/../git; pwd)/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  for DOTFILE in $(cd ${BASEDIR}/../ssh; pwd)/*; do ln -sfv "$DOTFILE" ~/.ssh; done
 }
 
 function main {
