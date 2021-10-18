@@ -29,17 +29,22 @@ function base_packages {
 
 function backup_gitconfig {
   if ! [[ -s ~/.gitconfig_local ]]; then
-    cat ~/.gitconfig >> ~/.gitconfig_local
+    cat ~/.gitconfig >>~/.gitconfig_local
   fi
 }
 
 function link_dotfiles {
   ln -sfvd "$BASEDIR"/system/.bin/ ~
-  # for DOTFILE in "$BASEDIR"/runcom/bash/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  for DOTFILE in "$BASEDIR"/runcom/zsh/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  for DOTFILE in "$BASEDIR"/zsh/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in "$BASEDIR"/system/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  for DOTFILE in $(cd ${BASEDIR}/../git; pwd)/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  for DOTFILE in $(cd ${BASEDIR}/../ssh; pwd)/*; do ln -sfv "$DOTFILE" ~/.ssh; done
+  for DOTFILE in $(
+    cd ${BASEDIR}/../git
+    pwd
+  )/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  for DOTFILE in $(
+    cd ${BASEDIR}/../ssh
+    pwd
+  )/*; do ln -sfv "$DOTFILE" ~/.ssh; done
 }
 
 function main {
