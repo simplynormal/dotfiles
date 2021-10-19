@@ -20,7 +20,7 @@ function update_upgrade {
 
 function base_packages {
   basepkgs=(curl direnv dos2unix git git-lfs htop less make man-db most
-    nano openssl pinentry-tty rsync tree)
+    nano openssl pinentry-tty rsync tree wget)
 
   sudo "$1" install -y "${basepkgs[@]}"
 
@@ -52,13 +52,24 @@ function main {
   bash ./packages/python_pyenv.sh "$@"
   bash ./packages/omz_zsh.sh "$@"
   bash ./packages/node_n.sh "$@"
-  backup_gitconfig
-  link_dotfiles
+  backup_gitconfig "$@"
+  link_dotfiles "$@"
   sudo "$1" autoremove -y
 }
 
-if [[ -x "$(command -v apt)" ]]; then
-  main apt
-elif [[ -x "$(command -v dnf)" ]]; then
-  main dnf
-fi
+# https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  install | i | setup)
+    if [[ -x "$(command -v apt)" ]]; then
+      main apt
+    elif [[ -x "$(command -v dnf)" ]]; then
+      main dnf
+    fi
+    shift
+    ;;
+  *)
+    shift
+    ;;
+  esac
+done

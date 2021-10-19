@@ -23,15 +23,14 @@ They are each documented in the README file in their respective `plugins/` folde
 - Clone the repository, preferably to your home directory
 
 ```bash
-cd ~ &&\
-git clone https://github.com/Smithienious/dotfiles.git
+cd ~ && git clone https://github.com/Smithienious/dotfiles.git
 ```
 
 - Move into the directory and run the script
 
 ```bash
-cd ~/dotfiles
-source ./install.sh setup
+cd ~/dotfiles/nix
+source ./install.sh i
 ```
 
 ## FAQ
@@ -50,5 +49,3 @@ Suggestions/improvements are [welcome and encouraged](https://github.com/Smithie
 ## Credits
 
 Some of these scripts are taken from [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup).
-
-Aliases and functions are shamelessly stolen from [Oh My Zsh Plugins](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins).
