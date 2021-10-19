@@ -35,8 +35,7 @@ function backup_gitconfig {
 
 function link_dotfiles {
   ln -sfvd "$BASEDIR"/system/.bin/ ~
-  for DOTFILE in "$BASEDIR"/zsh/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
-  for DOTFILE in "$BASEDIR"/system/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  for DOTFILE in "$BASEDIR"/{runcom,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in $(
     cd ${BASEDIR}/../git
     pwd
