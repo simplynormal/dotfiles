@@ -99,16 +99,6 @@ HIST_STAMPS="yyyy-mm-dd"
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-# Choose between one [code, code-insiders or codium]
-# The following line will make the plugin to open VS Code Insiders
-# Invalid entries will be ignored, no aliases will be added
-# shellcheck disable=SC2034
-if [[ -x "$(command -v code-insiders)" ]]; then
-  VSCODE=code-insiders
-else
-  VSCODE=code
-fi
-
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -128,7 +118,6 @@ plugins=(
   git-lfs
   pyenv
   python
-  vscode
   zsh-autosuggestions
   zsh-syntax-highlighting # Must be placed at last
 )
