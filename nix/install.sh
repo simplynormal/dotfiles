@@ -7,8 +7,6 @@ if [[ $UID -eq 0 ]]; then
   exit 1
 fi
 
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 function update_upgrade {
   if [[ "$1" == dnf ]]; then
     sudo dnf upgrade -y
@@ -34,14 +32,14 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  ln -sfvd "$BASEDIR"/system/.bin/ ~
-  for DOTFILE in "$BASEDIR"/{runcom,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  ln -sfvd "$(pwd)"/system/.bin/ ~
+  for DOTFILE in "$(pwd)"/{runcom,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in $(
-    cd ${BASEDIR}/../git
+    cd $(pwd)/../git
     pwd
   )/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
   for DOTFILE in $(
-    cd ${BASEDIR}/../ssh
+    cd $(pwd)/../ssh
     pwd
   )/*; do ln -sfv "$DOTFILE" ~/.ssh; done
 }
