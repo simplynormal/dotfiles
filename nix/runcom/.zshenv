@@ -1,13 +1,11 @@
-# Always executes first
+#
+# Defines environment variables.
+#
 
-# Editor
-export EDITOR="nano"
-
-# History
-export HISTSIZE=32768;
-export HISTFILESIZE="${HISTSIZE}";
-export SAVEHIST=4096
-export HISTCONTROL=ignoredups:erasedups
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
 
 # Enable colors
 export CLICOLOR=1

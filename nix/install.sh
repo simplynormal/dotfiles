@@ -18,9 +18,11 @@ function update_upgrade {
 
 function base_packages {
   basepkgs=(curl dos2unix git git-lfs htop less make man-db most
-    nano openssl pinentry-tty rsync tree wget)
+    nano openssl pinentry-tty rsync tmux tree wget)
+  fun=(cowsay figlet fortune-mod)
 
-  sudo "$1" install -y "${basepkgs[@]}"
+  sudo "$1" install -y "${basepkgs[@]}" "${fun[@]}"
+  gem install lolcat
 
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
@@ -32,7 +34,6 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  ln -sd "$(pwd)"/system/.bin/ ~
   for DOTFILE in "$(pwd)"/{runcom,system}/.[a-z]*; do ln -s "$DOTFILE" ~; done
   for DOTFILE in $(
     cd $(pwd)/../git
@@ -50,8 +51,8 @@ function main {
   update_upgrade "$@"
   base_packages "$@"
   bash ./packages/python_pyenv.sh "$@"
-  bash ./packages/omz_zsh.sh "$@"
   bash ./packages/node_n.sh "$@"
+  bash ./packages/zsh_prezto.sh "$@"
   backup_gitconfig "$@"
   link_dotfiles "$@"
   sudo "$1" autoremove -y
