@@ -8,7 +8,7 @@ function main {
   n rm "$(n --lts)"
   n latest
 
-  npm install -g editorconfig
+  npm install -g editorconfig gitmoji-cli
 }
 
 main "$@"
