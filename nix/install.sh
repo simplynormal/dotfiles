@@ -17,7 +17,7 @@ function update_upgrade {
 }
 
 function base_packages {
-  basepkgs=(curl direnv dos2unix git git-lfs htop less make man-db most
+  basepkgs=(curl dos2unix git git-lfs htop less make man-db most
     nano openssl pinentry-tty rsync tree wget)
 
   sudo "$1" install -y "${basepkgs[@]}"
@@ -42,6 +42,8 @@ function link_dotfiles {
     cd $(pwd)/../ssh
     pwd
   )/*; do ln -sfv "$DOTFILE" ~/.ssh; done
+
+  mkdir ~/.ssh/sockets
 }
 
 function main {
