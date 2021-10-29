@@ -32,16 +32,16 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  ln -sfvd "$(pwd)"/system/.bin/ ~
-  for DOTFILE in "$(pwd)"/{runcom,system}/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  ln -sd "$(pwd)"/system/.bin/ ~
+  for DOTFILE in "$(pwd)"/{runcom,system}/.[a-z]*; do ln -s "$DOTFILE" ~; done
   for DOTFILE in $(
     cd $(pwd)/../git
     pwd
-  )/.[a-z]*; do ln -sfv "$DOTFILE" ~; done
+  )/.[a-z]*; do ln -s "$DOTFILE" ~; done
   for DOTFILE in $(
     cd $(pwd)/../ssh
     pwd
-  )/*; do ln -sfv "$DOTFILE" ~/.ssh; done
+  )/*; do ln -s "$DOTFILE" ~/.ssh; done
 
   mkdir ~/.ssh/sockets
 }
