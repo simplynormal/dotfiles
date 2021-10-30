@@ -18,7 +18,7 @@ function update_upgrade {
 
 function base_packages {
   basepkgs=(curl dos2unix git git-lfs htop less make man-db most
-    nano openssl pinentry-tty rsync tmux tree wget)
+    nano openssl pinentry-tty rsync ruby tmux tree wget)
   fun=(cowsay figlet fortune-mod)
 
   sudo "$1" install -y "${basepkgs[@]}" "${fun[@]}"
@@ -34,16 +34,15 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  for DOTFILE in "$(pwd)"/{runcom,system}/.[a-z]*; do ln -s "$DOTFILE" ~; done
-  for DOTFILE in $(
-    cd $(pwd)/../git
-    pwd
-  )/.[a-z]*; do ln -s "$DOTFILE" ~; done
-  for DOTFILE in $(
-    cd $(pwd)/../ssh
-    pwd
-  )/*; do ln -s "$DOTFILE" ~/.ssh; done
+  for rcfile in "$(pwd)"/{runcom,system}/*; do
+    ln -s "$@" "$rcfile" ~/.$(basename $rcfile)
+  done
 
+  for rcfile in $(cd $(pwd)/../git && pwd)/*; do
+    ln -s "$@" "$rcfile" ~/.$(basename $rcfile)
+  done
+
+  ln -s "$@" $(cd $(pwd)/../ssh && pwd)/config ~/.ssh/config
   mkdir ~/.ssh/sockets
 }
 
@@ -53,8 +52,8 @@ function main {
   bash ./packages/python_pyenv.sh "$@"
   bash ./packages/node_n.sh "$@"
   bash ./packages/zsh_prezto.sh "$@"
-  backup_gitconfig "$@"
-  link_dotfiles "$@"
+  backup_gitconfig
+  link_dotfiles
   sudo "$1" autoremove -y
 }
 
