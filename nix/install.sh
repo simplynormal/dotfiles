@@ -52,6 +52,7 @@ function main {
   bash ./packages/python_pyenv.sh "$@"
   bash ./packages/node_n.sh "$@"
   bash ./packages/zsh_prezto.sh "$@"
+
   backup_gitconfig
   link_dotfiles
   sudo "$1" autoremove -y

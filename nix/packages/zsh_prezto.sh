@@ -9,14 +9,7 @@ function main {
   fi
 
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
-    [[ $rcfile =~ .md$ ]] && continue
-    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.$(basename $rcfile)"
-  done
-
-  cd "${ZDOTDIR:-$HOME}/.zprezto"
-  git clone --recurse-submodules https://github.com/belak/prezto-contrib contrib
+  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
 }
 
 main "$@"
