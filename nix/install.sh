@@ -22,7 +22,7 @@ function base_packages {
   fun=(cowsay figlet fortune-mod)
 
   sudo "$1" install -y "${basepkgs[@]}" "${fun[@]}"
-  gem install lolcat
+  sudo gem install lolcat
 
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
