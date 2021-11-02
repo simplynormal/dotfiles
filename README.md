@@ -48,4 +48,4 @@ Suggestions/improvements are [welcome and encouraged](https://github.com/Smithie
 
 ## Credits
 
-Some of these scripts are taken from [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup).
+Some of these scripts are taken from [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup) and [ohmyzsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins).

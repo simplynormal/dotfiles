@@ -8,8 +8,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Dotfiles (order matters)
-source ~/.zsh_functions
-source ~/.zsh_aliases
+for DOTFILE in ~/.{zfunctions,zaliases}; do
+  [[ -f "$DOTFILE" ]] && source "$DOTFILE"
+done
 
 # Set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.bin" ]]; then
