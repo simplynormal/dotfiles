@@ -7,18 +7,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Dotfiles (order matters)
-for DOTFILE in ~/.{zfunctions,zaliases}; do
-  [[ -f "$DOTFILE" ]] && source "$DOTFILE"
-done
-
 # Set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.bin" ]]; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# GnuPG pinentry
-export GPG_TTY=$(tty)
+# Dotfiles (order matters)
+for DOTFILE in ~/.{zfunctions,zaliases}; do
+  [[ -f "$DOTFILE" ]] && source "$DOTFILE"
+done
 
 # Pyenv
 if [[ -z "$VIRTUAL_ENV" ]]; then

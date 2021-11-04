@@ -5,7 +5,7 @@ function main {
 
   chsh -s "$(command -v zsh)"
   if [[ -f "${HOME}/.zshrc" ]]; then
-    mv "${HOME}/.zshrc" "${HOME}/.zshrc.back"
+    mv "${HOME}/.zshrc" "${HOME}/.zshrc.bak"
   fi
 
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"

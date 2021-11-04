@@ -41,9 +41,8 @@ path=(
 #
 
 # Set the default Less options.
-# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-# Remove -X to enable it.
-export LESS='-g -i -M -R -S -w -X -z-4'
+# Add -X to disable screen clearing.
+export LESS='-g -i -M -R -S -w -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
@@ -51,12 +50,15 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# Set pinentry to input password for GnuPG
+export GPG_TTY=$(tty)
 
 # Dotfiles (order matters)
 for DOTFILE in ~/.{path,prompt,custom}; do
   [[ -f "$DOTFILE" ]] && source "$DOTFILE"
 done
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"

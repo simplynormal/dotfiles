@@ -1,6 +1,9 @@
 [alias]
-lol = log --graph --decorate --pretty=oneline --abbrev-commit
-lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+a = add
+st = status
+lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
+lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --stat
 wdiff = diff -w --word-diff=color
 whatadded = log --diff-filter=A
 
@@ -32,10 +35,21 @@ changed = green
 untracked = cyan
 
 [core]
+autocrlf = input
 excludesfile = ~/.gitignore_global
+pager = less
 
 [init]
 defaultBranch = main
+
+[help]
+autocorrect = 10 # tenths of a second
+
+# [pull]
+# rebase = true
+#
+# [rebase]
+# autoStash = true
 
 [push]
 default = simple
