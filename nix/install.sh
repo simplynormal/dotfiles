@@ -34,15 +34,12 @@ function backup_gitconfig {
 }
 
 function link_dotfiles {
-  for rcfile in "$(pwd)"/{runcom,system}/*; do
-    ln -s "$@" "$rcfile" ~/.$(basename $rcfile)
+  for rcfile in ./{../git,runcom,system}/*; do
+    ln -rs "$@" "$rcfile" ~/.$(basename $rcfile)
   done
 
-  for rcfile in $(cd $(pwd)/../git && pwd)/*; do
-    ln -s "$@" "$rcfile" ~/.$(basename $rcfile)
-  done
-
-  ln -s "$@" $(cd $(pwd)/../ssh && pwd)/config ~/.ssh/config
+  ln -rs "$@" ./../.editorconfig ~/.editorconfig
+  ln -rs "$@" ./../ssh/config ~/.ssh/config
   mkdir ~/.ssh/sockets
 }
 
