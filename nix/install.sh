@@ -29,7 +29,7 @@ function base_packages {
 
 function backup_gitconfig {
   if ! [[ -s ~/.gitconfig_local ]]; then
-    cat ~/.gitconfig >>~/.gitconfig_local
+    cp ~/.gitconfig ~/.gitconfig_local
   fi
 }
 
