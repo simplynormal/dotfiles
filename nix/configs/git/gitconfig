@@ -1,10 +1,20 @@
 [alias]
 a = add
+cl = clone
+
+co = checkout
+cb = checkout -b
+
+rb = rebase
+rbi = rebase -i
+
 st = status
 sw = switch
+
 lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
 lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --stat
+
 wdiff = diff -w --word-diff=color
 whatadded = log --diff-filter=A
 
@@ -36,7 +46,7 @@ changed = green
 untracked = cyan
 
 [core]
-autocrlf = input
+# autocrlf = input
 excludesfile = ~/.gitignore_global
 pager = less
 
