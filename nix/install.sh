@@ -38,11 +38,14 @@ function link_dotfiles {
     ln -rs "$@" "$rcfile" ~/.$(basename $rcfile)
   done
 
-  ln -rs "$@" ./configs/gpg/gpg.conf ~/.gnupg/gpg.conf
+  for rcfile in ./configs/gnupg/*; do
+    ln -rs "$@" "$rcfile" ~/.gnupg/$(basename $rcfile)
+  done
+
   ln -rs "$@" ./configs/ssh/config ~/.ssh/config
   mkdir ~/.ssh/sockets
 
-  ln -rs "$@" ./configs/.editorconfig /.editorconfig
+  sudo ln -rs "$@" ./configs/.editorconfig /.editorconfig
 }
 
 function main {
